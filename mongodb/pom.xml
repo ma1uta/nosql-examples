@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.sggr</groupId>
+    <artifactId>mongodb-examples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.joelittlejohn.embedmongo</groupId>
+                <artifactId>embedmongo-maven-plugin</artifactId>
+                <version>0.3.4</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <!--<port>37017</port>-->
+                            <!-- optional, default 27017 -->
+
+                            <!--<randomPort>true</randomPort>-->
+                            <!-- optional, default is false, if true allocates a random port and overrides embedmongo.port -->
+
+                            <!--<version>2.0.4</version>-->
+                            <!-- optional, default 2.2.1 -->
+
+                            <databaseDirectory>${project.build.directory}/mongotest</databaseDirectory>
+                            <!-- optional, default is a new dir in java.io.tmpdir -->
+
+                            <logging>file</logging>
+                            <!-- optional (file|console|none), default console -->
+
+                            <logFile>${project.build.directory}/myfile.log</logFile>
+                            <!-- optional, can be used when logging=file, default is ./embedmongo.log -->
+
+                            <logFileEncoding>utf-8</logFileEncoding>
+                            <!-- optional, can be used when logging=file, default is utf-8 -->
+
+                            <bindIp>127.0.0.1</bindIp>
+                            <!-- optional, default is to listen on all interfaces -->
+
+                            <!--<downloadPath>http://internal-mongo-repo/</downloadPath>-->
+                            <!-- optional, default is http://fastdl.mongodb.org/ -->
+
+                            <!--<storageEngine>wiredTiger</storageEngine>-->
+                            <!--optional, one of wiredTiger or mmapv1 (default is mmapv1) -->
+
+                            <skip>false</skip>
+                            <!-- optional, skips this plugin entirely, use on the command line like -Dembedmongo.skip -->
+
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
