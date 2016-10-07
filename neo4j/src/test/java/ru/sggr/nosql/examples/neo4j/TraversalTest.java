@@ -51,7 +51,7 @@ public class TraversalTest {
                 + "(lars {name: 'Lars'}), (ed {name: 'Ed'}),"
                 + "(joe)-[:KNOWS]->(sara), (lisa)-[:LIKES]->(joe), "
                 + "(peter)-[:KNOWS]->(sara), (dirk)-[:KNOWS]->(peter), "
-                + "(lars)-[:KNOWS]->(drk), (ed)-[:KNOWS]->(lars), "
+                + "(lars)-[:KNOWS]->(dirk), (ed)-[:KNOWS]->(lars), "
                 + "(lisa)-[:KNOWS]->(lars) "
                 + "RETURN joe";
         Result result = db.execute(query);
