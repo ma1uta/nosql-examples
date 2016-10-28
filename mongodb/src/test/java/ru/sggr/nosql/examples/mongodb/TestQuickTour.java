@@ -60,7 +60,17 @@ public class TestQuickTour {
         Document doc2 = new Document("name", "MongoTest")
                 .append("type", "table")
                 .append("i", 71);
-        collection.insertMany(Arrays.asList(doc1, doc2));
+        /*
+         * Add document:
+         *      {
+         *          "name" : "MongoTest",
+         *          "type" : "table",
+         *          "i"    : 71
+         */
+        Document doc3 = new Document("name", "MongoTest2")
+                .append("type", "table")
+                .append("i", "asd");
+        collection.insertMany(Arrays.asList(doc1, doc2, doc3));
     }
 
     @AfterClass
@@ -82,12 +92,20 @@ public class TestQuickTour {
         }
     }
 
-    @Ignore
     @Test
     public void filterTest() {
         MongoCollection<Document> collection = database.getCollection("test");
         Document doc = collection.find(eq("i", 71)).first();
         System.out.println("Found records with i=71");
+        System.out.println(doc.toJson());
+        doc = collection.find(eq("i", "asd")).first();
+        System.out.println("Found records with i='asd'");
+        System.out.println(doc.toJson());
+        doc = collection.find(eq("x", 203)).first();
+        System.out.println("Found records with i=203");
+        System.out.println(doc.toJson());
+        doc = collection.find(eq("x", "203")).first();
+        System.out.println("Found records with i='203'");
         System.out.println(doc.toJson());
     }
 }
